@@ -1,0 +1,689 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Passo-a-passo: Produtos / Ativos / Contratos (Fornecedores e Clientes)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ad1780df-4c07-4ff7-8634-e2dbc1053ddd" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/kind_gray.svg"/></div><h1 class="page-title">Passo-a-passo: Produtos / Ativos / Contratos (Fornecedores e Clientes)</h1><p class="page-description"></p></header><div class="page-body"><p id="ddcc080a-19cc-4285-90cf-8fc49f384fa9" class="">
+</p><p id="a3f5d151-714d-430a-ba0a-b8a089ec1248" class="">Após efetuar o login, para você adicionar novos ativos, você deverá clicar no menu lateral, acessar “Gestão” e apertar o botão (+) que aparece ao lado do total de ativos.</p><figure id="9787ec1f-180e-4c3f-8357-ddb580750a9a" class="image"><a href="Passo-a-passo%20Produtos%20Ativos%20Contratos%20(Fornecedo%20ad1780df4c074ff78634e2dbc1053ddd/Untitled.gif"><img style="width:1920px" src="Passo-a-passo%20Produtos%20Ativos%20Contratos%20(Fornecedo%20ad1780df4c074ff78634e2dbc1053ddd/Untitled.gif"/></a></figure><p id="f263cb8a-8e3c-4dd0-a704-427eeff885fe" class="">
+</p><p id="9a1f6846-0975-4ec4-b95b-7e751ea8557a" class="">Ao percorrer por todas as etapas na adição de ativos permitirá o conhecimento da maior parte das funcionalidades do sistema, como veremos a seguir:</p><h2 id="4308b736-265f-474d-b58d-06d13f5e3daf" class="">Passo 01:</h2><h3 id="b21cea68-fee9-46ff-a09e-dba43c598705" class=""><strong>Como Inserir Seriais no Sistema?</strong></h3><figure id="98fbaa42-6ccc-4e74-b66d-b9c67b3eb78f" class="image"><a href="Passo-a-passo%20Produtos%20Ativos%20Contratos%20(Fornecedo%20ad1780df4c074ff78634e2dbc1053ddd/Untitled%201.gif"><img style="width:844px" src="Passo-a-passo%20Produtos%20Ativos%20Contratos%20(Fornecedo%20ad1780df4c074ff78634e2dbc1053ddd/Untitled%201.gif"/></a></figure><ol type="1" id="634d2dbb-4c9c-454b-a4cf-71a48f6ee223" class="numbered-list" start="1"><li><strong>Campo de Inserção:</strong> Você verá um campo de texto com o título &quot;Serial(is):&quot;. Este é o local onde você deve inserir o(s) número(s) de série.</li></ol><ol type="1" id="b300115b-15a0-4aa1-9c65-9f93ab26b0e9" class="numbered-list" start="2"><li><strong>Digite o Serial:</strong> Comece a digitar o número de série no campo fornecido.</li></ol><ol type="1" id="83380318-2f37-4267-be88-7b7c27feeef4" class="numbered-list" start="3"><li><strong>Inserir Múltiplos Seriais:</strong> Se você deseja inserir vários números de série de uma só vez, pode separá-los usando uma das seguintes opções:<ul id="11dcecd7-9a46-4d7a-a3f9-d9de67f287e9" class="bulleted-list"><li style="list-style-type:disc">Virgula (,)</li></ul><ul id="cadb1fec-50ee-4d9d-88e0-997520721d74" class="bulleted-list"><li style="list-style-type:disc">Ponto e vírgula (;)</li></ul><ul id="a9cf2883-e67c-4ce5-af15-1307abdb2430" class="bulleted-list"><li style="list-style-type:disc">Ou a palavra &quot;e&quot; (por exemplo: serial1 e serial2)</li></ul><p id="a4c4ae08-d9b7-4c79-bf91-c3cbf9132604" class="">O sistema reconhecerá esses separadores e dividirá os números de série automaticamente.</p></li></ol><ol type="1" id="631a7ae2-6d2e-467d-8ce3-a7f6938b5f69" class="numbered-list" start="4"><li><strong>Verifique o Espaço Disponível:</strong> O campo de texto se ajustará ao tamanho da tela do seu dispositivo. Isso significa que, se você estiver usando um dispositivo com uma tela mais larga, poderá ver mais caracteres em uma única linha. No entanto, existe um limite máximo de linhas para garantir que a visualização permaneça clara.</li></ol><ol type="1" id="c993e430-26be-4510-af2a-9fc46ca85454" class="numbered-list" start="5"><li><strong>Finalize:</strong> Depois de inserir os números de série, confirme ou salve as alterações conforme as instruções do sistema.</li></ol><h3 id="1ca5e71e-456f-4670-b2a1-cf8b5f719660" class="">Inserindo itens:</h3><figure id="3b39e4b6-2451-46d1-a79f-5e23f54387ec" class="image"><a href="Passo-a-passo%20Produtos%20Ativos%20Contratos%20(Fornecedo%20ad1780df4c074ff78634e2dbc1053ddd/Untitled%202.gif"><img style="width:840px" src="Passo-a-passo%20Produtos%20Ativos%20Contratos%20(Fornecedo%20ad1780df4c074ff78634e2dbc1053ddd/Untitled%202.gif"/></a></figure><p id="50cb386c-bd60-48e9-b784-a2df550a2fd2" class="">Quando você acessa o campo acima, encontrará duas opções principais:</p><ol type="1" id="bdb14554-43ba-4d52-a640-9241f608c776" class="numbered-list" start="1"><li><strong>Selecionar um item existente</strong></li></ol><ol type="1" id="b4fda4fa-c2f8-4849-9c75-0f260181051c" class="numbered-list" start="2"><li><strong>Inserir um novo item</strong></li></ol><hr id="9674c44e-3831-4794-b83a-60940a6a40d4"/><h3 id="79654fb0-c7e6-4c52-bef3-f320f0ddcbaa" class="">2. <strong>Selecionar um Item Existente</strong></h3><figure id="72eea704-e913-4501-a1c9-8e72255acc41" class="image"><a href="Passo-a-passo%20Produtos%20Ativos%20Contratos%20(Fornecedo%20ad1780df4c074ff78634e2dbc1053ddd/Untitled%203.gif"><img style="width:840px" src="Passo-a-passo%20Produtos%20Ativos%20Contratos%20(Fornecedo%20ad1780df4c074ff78634e2dbc1053ddd/Untitled%203.gif"/></a></figure><p id="2adc3a74-2e86-4e4e-a131-afbbee4080fc" class="">Ao optar por &quot;Selecionar um item existente&quot;:</p><ul id="54718d81-9b8f-41de-a194-3b64234b4934" class="bulleted-list"><li style="list-style-type:disc">Será apresentada uma lista de todos os itens que você já adicionou anteriormente.</li></ul><ul id="deed9958-8245-40f8-bf9b-9aa36791851f" class="bulleted-list"><li style="list-style-type:disc">Escolha o item desejado, tocando ou clicando sobre ele, para visualizar, editar ou deletar o item.</li></ul><hr id="7520b8ef-ea25-428f-a9be-f5dcfa5b95c0"/><h3 id="6f4a38a6-21c6-41ce-b2d4-2964b1e223fe" class="">3. <strong>Inserir um Novo Item</strong></h3><figure id="35985333-e734-4d64-b1b0-39f33dc2c50d" class="image"><a href="Passo-a-passo%20Produtos%20Ativos%20Contratos%20(Fornecedo%20ad1780df4c074ff78634e2dbc1053ddd/Untitled%204.gif"><img style="width:1080px" src="Passo-a-passo%20Produtos%20Ativos%20Contratos%20(Fornecedo%20ad1780df4c074ff78634e2dbc1053ddd/Untitled%204.gif"/></a></figure><p id="57fe1bad-ff1f-43e2-bce9-b964207bd600" class="">Para adicionar um novo item ao sistema:</p><ol type="1" id="7d2edaca-b894-450e-8a2e-019c87f8aa74" class="numbered-list" start="1"><li>Clique no botão com ícone de ➕.</li></ol><ol type="1" id="fe5c7c11-4834-4e08-a6f0-46a73dc549f2" class="numbered-list" start="2"><li>Surgirá um assistente de adição passo a passo:</li></ol><ul id="dac67054-c33c-42f1-9e1f-16fe34d9a788" class="bulleted-list"><li style="list-style-type:disc"><strong>Categoria:</strong> Primeiro, defina em que categoria esse item se encaixa. Pode ser, ou Rádio ou Insumo (se for insumo, poderá ser definido qual é a categoria do insumo, se antena, bateria, clip, etc.)<figure id="47af79d3-9377-4532-85bb-fa3e17c4e5b7" class="image"><a href="Passo-a-passo%20Produtos%20Ativos%20Contratos%20(Fornecedo%20ad1780df4c074ff78634e2dbc1053ddd/Untitled%205.gif"><img style="width:948px" src="Passo-a-passo%20Produtos%20Ativos%20Contratos%20(Fornecedo%20ad1780df4c074ff78634e2dbc1053ddd/Untitled%205.gif"/></a></figure></li></ul><ul id="0d9fb2ec-0a82-4efa-9ffb-e1faa00fe0ad" class="bulleted-list"><li style="list-style-type:disc"><strong>Tipo:</strong> Em seguida, especifique o tipo do item dentro da categoria escolhida. Por exemplo, se a categoria for &quot;Eletrônicos&quot;, o tipo pode ser &quot;Smartphone&quot; ou &quot;Televisão&quot;.</li></ul><ul id="36114207-d588-4b5d-af11-d44be60d94d8" class="bulleted-list"><li style="list-style-type:disc"><strong>Modelo:</strong> Agora, selecione ou digite o modelo específico do item.</li></ul><ul id="a5230bc4-2b80-4d23-b8a0-a1ff802c7e3b" class="bulleted-list"><li style="list-style-type:disc"><strong>Detalhes Adicionais:</strong> Conforme necessário, preencha campos como &quot;Cor&quot;, &quot;Tamanho&quot;, &quot;Marca&quot; e outros que ajudarão na identificação e caracterização do item.</li></ul><ol type="1" id="be8835ba-e33b-46f9-9548-813f9a05a2ec" class="numbered-list" start="1"><li>Após preencher todas as informações, revise para garantir que tudo esteja correto e confirme a adição do novo item.</li></ol><hr id="15083ea4-0397-4b1d-8b8d-bf17b1311af2"/><h3 id="86cf99d9-f880-438a-834b-d85e8f007530" class="">4. <strong>Atualizar um Item Existente</strong></h3><p id="481e9fae-6b75-471a-943f-748591d3c6d5" class="">Caso queira fazer alterações em um item já registrado:</p><ol type="1" id="019b62f6-ca3f-4cc7-9713-d3a2a3fd689e" class="numbered-list" start="1"><li>Primeiro, selecione o item que deseja atualizar.</li></ol><ol type="1" id="3b9fe988-a450-4b2a-9619-321fa9e30491" class="numbered-list" start="2"><li>Faça as modificações desejadas nas informações do item.</li></ol><ol type="1" id="b26806ba-a4f8-4639-b620-d4c61097f874" class="numbered-list" start="3"><li>Confirme as alterações.</li></ol><hr id="f10cf916-e4da-4d5d-af53-f4d269e4be6c"/><h3 id="c73be8f4-64d9-41e9-8793-0e7ca56f832b" class="">5. <strong>Excluir um Item</strong></h3><p id="4c146959-799c-4d45-a9c7-4f7d7374b5bd" class="">Se precisar remover um item do sistema:</p><ol type="1" id="bccf507c-83f9-4043-9f5a-7924bb616c7b" class="numbered-list" start="1"><li>Primeiro, selecione o item que deseja excluir.</li></ol><ol type="1" id="e804b8ed-c1bd-47d8-b029-77a7052b91d7" class="numbered-list" start="2"><li>Você verá um botão com ícone de 🗑️. Clique nele.</li></ol><ol type="1" id="e5da6105-9701-4479-8437-99700e4e194a" class="numbered-list" start="3"><li>Uma mensagem de confirmação aparecerá, perguntando se você realmente deseja excluir aquele item. Lembre-se de que essa ação é irreversível. Se estiver certo da decisão, confirme a exclusão.</li></ol><h2 id="aad673b3-aec3-4919-b67b-ab4e783e76ab" class="">Passo 02:</h2><p id="7051f36d-4675-4eea-9668-27a201b85a16" class="">
+</p><h3 id="3377671f-9c71-4243-8d33-556c45ce13fc" class=""><strong><strong>CRUD de Fornecedores</strong></strong>:</h3><p id="26f02e80-8675-405f-88aa-25a513d16bd2" class="">O processo de criação de ativos percorre 3 etapas, a primeira etapa tem o objetivo de definir o ativo, sua natureza e condição, enquanto o passo 02 tem por escopo definir quem é o fornecedor e o passo 03 visa estabelecer a destinação do ativo, que será posteriormente trabalhada, vamos nos ater agora no passo 02 (destinada ao fornecedor).</p><p id="bb3a0142-8d81-4198-91b7-8c73bc1e7ebf" class="">
+</p><p id="1991d13c-399f-4450-bc3e-24229f62cc9e" class="">Este passo é dedicado à gestão de fornecedores, permitindo a criação, visualização, atualização e exclusão de dados relacionados a eles.</p><p id="3f7d7765-eb5e-4b58-b0b4-3a42ac1bfed4" class="">
+</p><figure id="c097f742-86fa-4917-bd65-d8df7b3d759f" class="image"><a href="Passo-a-passo%20Produtos%20Ativos%20Contratos%20(Fornecedo%20ad1780df4c074ff78634e2dbc1053ddd/Untitled%206.gif"><img style="width:756px" src="Passo-a-passo%20Produtos%20Ativos%20Contratos%20(Fornecedo%20ad1780df4c074ff78634e2dbc1053ddd/Untitled%206.gif"/></a></figure><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>1. Criação (Create)</strong></summary><div class="indented"><p id="6be8de9d-c427-4e6c-b3b5-ec68d9d5c16a" class=""><strong>Seleção de Fornecedor</strong>: O usuário pode começar digitando o nome do fornecedor ou selecionando um da lista.</p></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>2. Leitura (Read)</strong></summary><div class="indented"><ul id="ec4f2ed2-9b1a-4efd-beb2-08234510ee3e" class="bulleted-list"><li style="list-style-type:disc"><strong>Visualização de Informações</strong>: As informações do fornecedor são claramente listadas, incluindo:<ul id="cb553883-8400-4add-845c-bdd30274c54f" class="bulleted-list"><li style="list-style-type:circle">Razão Social</li></ul><ul id="454b5ca8-3b95-41a0-974e-ba0576031842" class="bulleted-list"><li style="list-style-type:circle">CNPJ</li></ul><ul id="27b425dc-47f1-4c55-b99d-62178de16620" class="bulleted-list"><li style="list-style-type:circle">Nome do Responsável</li></ul><ul id="3f077ab9-5750-42b8-93a0-fd8192a0e01d" class="bulleted-list"><li style="list-style-type:circle">E-mail</li></ul><ul id="bd5b82db-e514-4cbd-84b1-75fbbf47722d" class="bulleted-list"><li style="list-style-type:circle">Telefone Fixo</li></ul><ul id="43ca6324-9bee-4360-b580-be7dc778b1aa" class="bulleted-list"><li style="list-style-type:circle">Celular</li></ul><ul id="22cf55f6-d4e8-4f3e-ba76-81807d60852c" class="bulleted-list"><li style="list-style-type:circle">Endereço</li></ul></li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>3. Atualização (Update)</strong></summary><div class="indented"><ul id="ef46e448-1d7d-49fb-9a7e-1cd04715564e" class="bulleted-list"><li style="list-style-type:disc"><strong>Edição de Dados</strong>: O usuário tem a opção de editar os dados do fornecedor. Isso é feito através de um modal de edição que inclui os seguintes passos:<ul id="aa44ad45-6e6f-4d02-8118-eab0550d5b5a" class="bulleted-list"><li style="list-style-type:circle"><strong>Razão Social</strong>: Alteração do nome da empresa.</li></ul><ul id="99528a6f-7703-4f51-a37d-6ea3a1cd797a" class="bulleted-list"><li style="list-style-type:circle"><strong>CNPJ</strong>: Atualização do número do CNPJ.</li></ul><ul id="5aae45c1-3628-41b5-8e9f-06b6e40d00e6" class="bulleted-list"><li style="list-style-type:circle"><strong>Nome Completo</strong>: Alteração do nome do responsável pelo fornecedor.</li></ul><ul id="286b92b2-d776-4029-9025-740d5d86e29d" class="bulleted-list"><li style="list-style-type:circle"><strong>E-mail</strong>: Atualização do e-mail de contato.</li></ul><ul id="746d7ab2-8bf6-4248-ae95-d55279bc8aed" class="bulleted-list"><li style="list-style-type:circle"><strong>Telefone Fixo</strong>: Mudança do número de telefone fixo.</li></ul><ul id="252bab27-a7ec-4545-b649-3c5a16a155b0" class="bulleted-list"><li style="list-style-type:circle"><strong>Celular</strong>: Atualização do número de celular.</li></ul><ul id="c1a33932-240b-4b1c-b277-437782bda30f" class="bulleted-list"><li style="list-style-type:circle"><strong>Endereço</strong>: Edição do endereço, incluindo CEP, rua, número, complemento, bairro, cidade e estado.</li></ul></li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>4. Exclusão (Delete)</strong></summary><div class="indented"><ul id="298c9528-a8ac-41cc-8102-37b6fd505541" class="bulleted-list"><li style="list-style-type:disc"><strong>Remoção de Fornecedores</strong>: Embora não explicitamente mostrado nas imagens, esta funcionalidade deve permitir aos usuários remover um fornecedor do sistema.</li></ul><p id="6efb155f-9741-41ca-ae4a-16420aa48aac" class="">
+</p></div></details><p id="fa4a74e4-920a-4b1f-affd-11b074b4fa35" class="">
+</p><h3 id="7b1b8a00-7ba3-496e-9f55-3a1ebb58cfb2" class=""><strong><strong>CRUD de Clientes</strong></strong>:</h3><p id="ccadcb00-5957-418c-b377-ed557f33108b" class="">falar que é o mesmo do de fornecedores</p><h3 id="e2e8daab-c3ab-4833-af39-b0574f9ea169" class="">CRUD - Contratos</h3><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="7f0b6461-d46d-49e8-b559-6c662017fc4b"><div style="font-size:1.5em"><span class="icon">📌</span></div><div style="width:100%"><strong>Requisitos:</strong> Para que seja possível realizar o CRUD dos contratos é necessário definir o tipo de e a finalidade (se for o caso) do ativo. Sem isso não será possível dar prosseguimento. Isso ocorre pelo fato da definição dos contratos ser realizada de forma automática.
+<blockquote id="74e9bf6b-eb54-4c2f-8e0e-a821d3add06a" class=""><strong><em>Exemplo 1: </em></strong><em>Quando o operador definir que o tipo de ativo será </em><mark class="highlight-orange"><strong><em>compra</em></strong></mark><em> e finalidade será </em><mark class="highlight-blue"><strong><em>venda</em></strong></mark><em>, o sistema automaticamente reconhecerá que o contrato que será celebrado com o fornecedor será do tipo compra e o contrato que será celebrado com o cliente será do tipo venda.</em></blockquote><blockquote id="bf417dac-aee0-4380-9555-790747140527" class=""><strong><em>Exemplo 2: </em></strong><em>Quando o operador definir que o tipo de ativo será </em><mark class="highlight-orange"><strong><em>compra</em></strong></mark><em> e finalidade será </em><mark class="highlight-purple"><strong><em>locação</em></strong></mark><em>, o sistema automaticamente reconhecerá que o contrato que será celebrado com o fornecedor será do tipo compra e o contrato que será celebrado com o cliente será do tipo locação.</em></blockquote><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="6decc43e-aa49-4400-a240-8acadc89c5df"><div style="font-size:1.5em"><span class="icon">📢</span></div><div style="width:100%"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>Observação:</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong> A finalidade só aparecerá quando o operador estiver trabalhando com ativos do tipo <mark class="highlight-orange"><strong><em>compra</em></strong></mark>, porque ativos do tipo locação e manutenção não possuem derivações. Se um ativo do tipo <mark class="highlight-red"><em><strong>locação</strong></em></mark><mark class="highlight-red"> </mark>ingressou ao controle patrimonial o sistema interpretará que esse ativo foi locado de um fornecedor para exclusivamente ser sublocado. O mesmo ocorre com o ativo da <em><strong><mark class="highlight-teal">manutenção</mark></strong></em>, pois o ativo ingressou à relação patrimonial pelo fornecedor/cliente para ser consertado (note que no caso da manutenção o fornecedor e o cliente são a mesma pessoa).</div></figure></div></figure><p id="cd933291-ceb4-47fc-ab25-43cf485d4d28" class="">
+</p><p id="72553385-53cc-45c0-8c35-2fb37cab7b98" class="">O módulo de contratos permite a criação, leitura, atualização e exclusão de contratos com fornecedores e clientes. É um processo dividido em etapas, onde cada uma é essencial para o progresso e conclusão da gestão do contrato.</p><figure id="f5828d32-a7cf-4f2f-a51f-c01459576007" class="image"><a href="Passo-a-passo%20Produtos%20Ativos%20Contratos%20(Fornecedo%20ad1780df4c074ff78634e2dbc1053ddd/Untitled%207.gif"><img style="width:752px" src="Passo-a-passo%20Produtos%20Ativos%20Contratos%20(Fornecedo%20ad1780df4c074ff78634e2dbc1053ddd/Untitled%207.gif"/></a></figure><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>1. Criação (Create)</strong></summary><div class="indented"><ul id="db362694-9b10-478b-9a74-7a7ff1d3399d" class="bulleted-list"><li style="list-style-type:disc"><strong>Novo Contrato</strong>: Iniciar a criação de um novo contrato clicando no botão &quot;Novo contrato&quot;.</li></ul><ul id="b62cf19b-1048-493d-95a6-e07c34f20e28" class="bulleted-list"><li style="list-style-type:disc"><strong>Inserir Contrato</strong>: Preencher os detalhes do contrato, selecionando o fornecedor/cliente e inserindo informações pertinentes como a data do contrato, número do contrato, ordem de serviço, nota fiscal e garantia.</li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>2. Leitura (Read)</strong></summary><div class="indented"><ul id="41b1d4fe-a4f2-4e4f-b68c-d9a4079529ca" class="bulleted-list"><li style="list-style-type:disc"><strong>Visualização de Contrato</strong>: Os detalhes do contrato podem ser revisados antes de sua finalização, com todos os campos preenchidos visíveis para o usuário.</li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>3. Atualização (Update)</strong></summary><div class="indented"><ul id="2ee40719-a229-4d6b-92a3-b4dd09acfb8e" class="bulleted-list"><li style="list-style-type:disc"><strong>Edição de Contrato</strong>: Cada contrato inserido tem a opção de ser editado, permitindo alterações em qualquer informação, desde a seleção do fornecedor/cliente até os detalhes mais específicos do contrato.</li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>4. Exclusão (Delete)</strong></summary><div class="indented"><ul id="10738d73-3e5b-4c22-8864-f60e0dcd1176" class="bulleted-list"><li style="list-style-type:disc"><strong>Remover Contrato</strong>: A funcionalidade para excluir um contrato existente, embora não mostrada nas imagens, é um componente padrão de qualquer sistema de CRUD.</li></ul><p id="c9f3613d-40d7-42b4-9199-e04e5cbd974e" class="">
+</p></div></details><p id="65938092-55bb-4dd6-b021-c6e0597aafb8" class="">
+</p><h2 id="da09a40e-ff0b-4d22-9b11-bc9883714794" class="">Passo 03:
+</h2><figure id="e97a0b03-099a-40bb-a9c6-41947bff4da9" class="image"><a href="Passo-a-passo%20Produtos%20Ativos%20Contratos%20(Fornecedo%20ad1780df4c074ff78634e2dbc1053ddd/Untitled%208.gif"><img style="width:748px" src="Passo-a-passo%20Produtos%20Ativos%20Contratos%20(Fornecedo%20ad1780df4c074ff78634e2dbc1053ddd/Untitled%208.gif"/></a></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="fb89a28c-d982-4709-b07a-bf3b41cbeb89"><div style="font-size:1.5em"><span class="icon">📌</span></div><div style="width:100%">O passo 03 estabelece a destinação dos ativos. Por padrão os ativos são definidos como estoque, mas podem ser vinculados a clientes e seus respectivos contratos.</div></figure><p id="4ec47d01-095b-43b6-891d-a52d6be16b70" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
